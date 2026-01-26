@@ -1,0 +1,25 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: headlamp
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: headlamp
+  annotations:
+    gethomepage.dev/description: Kubernetes Web UI
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Cluster Management
+    gethomepage.dev/icon: headlamp.png
+    gethomepage.dev/name: Headlamp
+spec:
+  rules:
+  - host: headlamp-k3s.homelab.lan
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: my-headlamp
+            port:
+              number: 80
